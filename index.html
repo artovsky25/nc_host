@@ -3,273 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 - Page Not Found</title>
+    <title>What happened?</title>
     <style>
         body {
             margin: 0;
             padding: 0;
-            background: #1a1a1a;
-            font-family: 'Arial', sans-serif;
-            height: 100vh;
+            min-height: 100vh;
+            background: linear-gradient(
+                -45deg,
+                #1a1f3c, 
+                #2a2f5c, 
+                #4a3b78, 
+                #c06c84, 
+                #f67280  
+            );
+            background-size: 400% 400%;
+            animation: gradientFlow 15s ease infinite;
             display: flex;
-            align-items: center;
             justify-content: center;
-            color: #fff;
-            overflow: hidden;
+            align-items: center;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+            color: white;
         }
 
-        .container {
+        @keyframes gradientFlow {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .content {
             text-align: center;
-            position: relative;
+            padding: 2rem;
+            width: 100%;
         }
 
-        .error-code {
-            font-size: 150px;
-            font-weight: bold;
-            margin: 0;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: glitch 3s infinite, hover 2s ease-in-out infinite;
-            position: relative;
+        h1 {
+            font-size: 120px;
+            line-height: 1.07143;
+            font-weight: 600;
+            letter-spacing: -0.005em;
+            margin-bottom: 0.5rem;
+            width: 100%;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
 
-        .error-message {
-            font-size: 24px;
-            margin: 20px 0;
-            opacity: 0;
-            animation: fadeIn 2s forwards;
-        }
-
-        .particle {
-            position: absolute;
-            pointer-events: none;
-            background: radial-gradient(circle, #ff6b6b 0%, #ff4500 50%, transparent 70%);
-            border-radius: 50%;
-            box-shadow: 0 0 20px #ff6b6b;
-            transform-origin: center;
-        }
-
-        .fire-particle {
-            position: absolute;
-            pointer-events: none;
-            background: radial-gradient(circle, #ff4500 0%, #ff8c00 50%, transparent 80%);
-            border-radius: 50%;
-            filter: blur(2px);
-        }
-
-        .smoke-particle {
-            position: absolute;
-            pointer-events: none;
-            background: radial-gradient(circle, rgba(100,100,100,0.8) 0%, rgba(50,50,50,0.4) 50%, transparent 80%);
-            border-radius: 50%;
-            filter: blur(4px);
-        }
-
-        @keyframes glitch {
-            0% { transform: translate(0); }
-            20% { transform: translate(-5px, 5px); }
-            40% { transform: translate(-5px, -5px); }
-            60% { transform: translate(5px, 5px); }
-            80% { transform: translate(5px, -5px); }
-            100% { transform: translate(0); }
-        }
-
-        @keyframes hover {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-            100% { transform: translateY(0px); }
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes explode {
-            0% {
-                transform: scale(1);
-                opacity: 1;
-                filter: brightness(1);
-            }
-            20% {
-                transform: scale(1.2);
-                opacity: 1;
-                filter: brightness(2);
-            }
-            50% {
-                transform: scale(0.8);
-                opacity: 0.8;
-                filter: brightness(3);
-            }
-            100% {
-                transform: scale(0.1);
-                opacity: 0;
-                filter: brightness(4);
-            }
-        }
-
-        @keyframes particle {
-            0% {
-                transform: translate(0, 0) scale(1) rotate(0deg);
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.7;
-            }
-            100% {
-                transform: translate(var(--tx), var(--ty)) scale(0) rotate(var(--rot));
-                opacity: 0;
-            }
-        }
-
-        @keyframes fire {
-            0% {
-                transform: translate(0, 0) scale(1);
-                opacity: 1;
-            }
-            100% {
-                transform: translate(var(--tx), var(--ty)) scale(2);
-                opacity: 0;
-            }
-        }
-
-        @keyframes smoke {
-            0% {
-                transform: translate(0, 0) scale(1);
-                opacity: 0.8;
-            }
-            100% {
-                transform: translate(var(--tx), calc(var(--ty) - 200px)) scale(3);
-                opacity: 0;
-            }
-        }
-
-        .exploding {
-            animation: explode 0.8s cubic-bezier(.17,.67,.83,.67) forwards;
-        }
-
-        .container.exploding * {
-            animation: explode 0.8s cubic-bezier(.17,.67,.83,.67) forwards;
+        p {
+            font-size: 28px;
+            line-height: 1.10722;
+            font-weight: 400;
+            letter-spacing: .004em;
+            margin-top: 0.8em;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1 class="error-code">404</h1>
-        <p class="error-message">Oops! The page you're looking for doesn't exist.</p>
-    </div>
+    <div class="content">
+        <p></p>
+        <p>06.10.24 Night Community project has been frozen for an 
+        <br>
+        unknown period of time, all services are disabled.
+        <br>
+        Thanks to all those people who participated somehow,
+        <br>
+        it was the best time.        
+        <p></p>
+        <p>Oh yes, all the data is still stored here. If you need it,
+        <br>
+        you can restore it using your token or community help.</p>
+      <br>
+        <style>
+            .telegram-button, .status-button, .token-button {
+                display: inline-flex;
+                align-items: center;
+                padding: 15px 30px;
+                background: rgba(255, 255, 255, 0.1);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                border-radius: 30px;
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                cursor: pointer;
+                transition: all 0.3s ease;
+                text-decoration: none;
+                color: white;
+                margin: 0 10px;
+            }
 
-    <script>
-        function createParticles() {
-            const container = document.querySelector('.container');
-            const elements = container.querySelectorAll('*');
-            const particleCount = 80;
-            const fireCount = 40;
-            const smokeCount = 30;
+            .telegram-button:hover, .status-button:hover, .token-button:hover {
+                background: rgba(255, 255, 255, 0.2);
+                transform: translateY(-2px);
+            }
 
-            // Create explosion particles
-            elements.forEach(element => {
-                const rect = element.getBoundingClientRect();
-                
-                for (let i = 0; i < particleCount; i++) {
-                    const particle = document.createElement('div');
-                    particle.className = 'particle';
-                    
-                    const x = rect.left + Math.random() * rect.width;
-                    const y = rect.top + Math.random() * rect.height;
-                    const size = 3 + Math.random() * 8;
-                    
-                    const angle = Math.random() * Math.PI * 2;
-                    const velocity = 300 + Math.random() * 400;
-                    const tx = Math.cos(angle) * velocity;
-                    const ty = Math.sin(angle) * velocity;
-                    const rotation = Math.random() * 720 - 360;
-
-                    particle.style.cssText = `
-                        left: ${x}px;
-                        top: ${y}px;
-                        width: ${size}px;
-                        height: ${size}px;
-                        --tx: ${tx}px;
-                        --ty: ${ty}px;
-                        --rot: ${rotation}deg;
-                        animation: particle 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-                    `;
-
-                    document.body.appendChild(particle);
-                    setTimeout(() => particle.remove(), 1000);
-                }
-
-                // Create fire particles
-                for (let i = 0; i < fireCount; i++) {
-                    const fire = document.createElement('div');
-                    fire.className = 'fire-particle';
-                    
-                    const x = rect.left + Math.random() * rect.width;
-                    const y = rect.top + Math.random() * rect.height;
-                    const size = 10 + Math.random() * 20;
-                    
-                    const angle = Math.random() * Math.PI * 2;
-                    const velocity = 150 + Math.random() * 200;
-                    const tx = Math.cos(angle) * velocity;
-                    const ty = Math.sin(angle) * velocity;
-
-                    fire.style.cssText = `
-                        left: ${x}px;
-                        top: ${y}px;
-                        width: ${size}px;
-                        height: ${size}px;
-                        --tx: ${tx}px;
-                        --ty: ${ty}px;
-                        animation: fire 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-                    `;
-
-                    document.body.appendChild(fire);
-                    setTimeout(() => fire.remove(), 800);
-                }
-
-                // Create smoke particles
-                for (let i = 0; i < smokeCount; i++) {
-                    const smoke = document.createElement('div');
-                    smoke.className = 'smoke-particle';
-                    
-                    const x = rect.left + Math.random() * rect.width;
-                    const y = rect.top + Math.random() * rect.height;
-                    const size = 15 + Math.random() * 25;
-                    
-                    const angle = Math.random() * Math.PI * 2;
-                    const velocity = 100 + Math.random() * 150;
-                    const tx = Math.cos(angle) * velocity;
-                    const ty = Math.sin(angle) * velocity;
-
-                    smoke.style.cssText = `
-                        left: ${x}px;
-                        top: ${y}px;
-                        width: ${size}px;
-                        height: ${size}px;
-                        --tx: ${tx}px;
-                        --ty: ${ty}px;
-                        animation: smoke 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-                    `;
-
-                    document.body.appendChild(smoke);
-                    setTimeout(() => smoke.remove(), 1500);
-                }
-            });
-        }
-
-        setTimeout(() => {
-            const container = document.querySelector('.container');
-            container.classList.add('exploding');
-            createParticles();
-        }, 5000);
-    </script>
+            .telegram-icon, .server-icon, .code-icon {
+                width: 24px;
+                height: 24px;
+                margin-right: 10px;
+                fill: white;
+            }
+        </style>
+        <a href="https://t.me/nightcitymc" class="telegram-button">
+            <svg class="telegram-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.11.02-1.93 1.23-5.46 3.62-.52.36-.99.53-1.41.52-.46-.01-1.35-.26-2.01-.47-.81-.26-1.45-.4-1.4-.85.03-.22.46-.45 1.3-.68 5.09-2.22 8.49-3.68 10.19-4.4.73-.3 1.81-.76 2.21-.77.09 0 .29.02.42.19.11.13.14.31.16.43-.01.07-.02.14-.02.21z"/>
+            </svg>
+            Community
+        </a>
+        <a href="contact.html" class="token-button">
+            <svg class="code-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/>
+            </svg>
+            Use Token
+        </a>
+        <a href="current_state.html" class="status-button">
+            <svg class="server-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/>
+            </svg>
+            System Status
+        </a>
 </body>
 </html>

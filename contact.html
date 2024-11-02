@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(
+                -45deg,
+                #1a1f3c,
+                #2a2f5c,
+                #4a3b78,
+                #c06c84,
+                #f67280
+            );
+            background-size: 400% 400%;
+            animation: gradientFlow 15s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+            color: white;
+        }
+
+        @keyframes gradientFlow {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .content {
+            text-align: center;
+            padding: 2rem;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-input {
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: white;
+            font-size: 16px;
+        }
+
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        textarea.form-input {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: white;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        .submit-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <form class="contact-form" action="mailto:your-email@example.com" method="POST" enctype="text/plain">
+            <input type="text" name="token" class="form-input" placeholder="Token" required>
+            <textarea name="message" class="form-input" placeholder="Message" required></textarea>
+            <div style="color: rgba(255, 255, 255, 0.7); font-size: 14px;">
+                <svg style="width: 16px; height: 16px; margin-right: 5px; vertical-align: middle;" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                </svg>
+                The token was provided in the Telegram bot, if you have lost the bot's message, please use another method. If the email adress from which your message will be sent does not match the address linked to your token, your request will be rejected.
+               
+            </div>
+            <button type="submit" class="submit-button">
+                Send
+            </button>
+        </form>
+    </div>
+</body>
+</html>

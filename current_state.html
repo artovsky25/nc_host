@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infrastructure status</title>
+    <style>
+        :root {
+            --background-color: #ffffff;
+            --text-color: #000000;
+            --card-background: #f5f5f5;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --background-color: #1a1a1a;
+                --text-color: #ffffff;
+                --card-background: #2d2d2d;
+            }
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            position: relative;
+            min-height: 100vh;
+        }
+        .status-item {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            padding: 10px;
+            background-color: var(--card-background);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 10px;
+            margin-left: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .up {
+            background-color: #2ecc71;
+        }
+        .down {
+            background-color: #e74c3c;
+        }
+        .ping-time {
+            margin-left: 5px;
+            font-size: 0.9em;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+        .site-name {
+            margin-right: auto;
+        }
+        .time-display {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            font-size: 0.9em;
+            opacity: 0.8;
+            background-color: var(--background-color);
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .ip-display {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-size: 0.9em;
+            opacity: 0.8;
+            background-color: var(--background-color);
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Infrastructure Status</h1>
+    <div id="status-container">
+
+    </div>
+
+    <div class="time-display">
+        <div id="utc-time">UTC: Loading...</div>
+        <div id="server-time">Server Time: Loading...</div>
+    </div>
+
+    <div class="ip-display">
+        <div id="ip-address">Your IP: Loading...</div>
+        <div id="isp">Your ISP: Loading...</div>
+    </div>
+
+    <script>
+        async function getIPInfo() {
+            try {
+                const response = await fetch('https://ipapi.co/json/');
+                const data = await response.json();
+                document.getElementById('ip-address').textContent = `Your IP: ${data.ip}`;
+                document.getElementById('isp').textContent = `Your ISP: ${data.org}`;
+            } catch (error) {
+                document.getElementById('ip-address').textContent = 'IP Address: Failed to load';
+                document.getElementById('isp').textContent = 'ISP: Failed to load';
+            }
+        }
+
+        function updateTime() {
+            const now = new Date();
+            
+           
+            const utcString = now.toUTCString();
+            document.getElementById('utc-time').textContent = `UTC: ${utcString}`;
+            
+            
+            const serverString = now.toLocaleString();
+            document.getElementById('server-time').textContent = `Server Time: ${serverString}`;
+        }
+
+        
+        updateTime();
+        setInterval(updateTime, 1000);
+        
+        
+        getIPInfo();
+
+        const websites = [
+            { name: 'Home ', url: 'https://nightcommunity.ru' },
+            { name: 'Git', url: 'https://github.com/' },
+            { name: 'MC ', url: 'https://mc.nightcommunity.ru' },
+            { name: 'SL ', url: 'https://sl.nightcommunity.ru' },
+            { name: 'API ', url: 'https://api.nightcommunity.ru' },
+            { name: 'Cloud ', url: 'https://cloud.nightcommunity.ru' },
+            { name: 'Forum ', url: 'https://nightcommunity.ru/community' },
+            { name: 'WebCLI ', url: 'https://cli.nightcommunity.ru' },
+        ];
+
+        const statusContainer = document.getElementById('status-container');
+        let statusElements = new Map();
+
+        async function checkWebsiteStatus(url) {
+            try {
+                const startTime = performance.now();
+                const response = await fetch(url, { mode: 'no-cors' });
+                const endTime = performance.now();
+                const pingTime = Math.round(endTime - startTime);
+                return { isUp: true, ping: pingTime };
+            } catch (error) {
+                return { isUp: false, ping: null };
+            }
+        }
+
+        function createStatusElement(site) {
+            const div = document.createElement('div');
+            div.className = 'status-item';
+            div.innerHTML = `
+                <span class="site-name">${site.name}</span>
+                <span class="ping-display">Ping: N/A</span>
+                <span class="status-dot"></span>
+                <span class="status-text">Checking...</span>
+            `;
+            return div;
+        }
+
+        function updateStatusElement(element, status) {
+            const pingDisplay = element.querySelector('.ping-display');
+            const statusDot = element.querySelector('.status-dot');
+            const statusText = element.querySelector('.status-text');
+
+            pingDisplay.textContent = `Ping: ${status.ping ? status.ping + ' ms' : 'N/A'}`;
+            statusDot.className = `status-dot ${status.isUp ? 'up' : 'down'}`;
+            statusText.textContent = status.isUp ? 'Up' : 'Down';
+        }
+
+        async function updateStatuses() {
+           
+            if (statusElements.size === 0) {
+                statusContainer.innerHTML = '';
+                for (const site of websites) {
+                    const element = createStatusElement(site);
+                    statusContainer.appendChild(element);
+                    statusElements.set(site.url, element);
+                }
+            }
+
+        
+            for (const site of websites) {
+                const status = await checkWebsiteStatus(site.url);
+                const element = statusElements.get(site.url);
+                updateStatusElement(element, status);
+            }
+        }
+
+        updateStatuses();
+        setInterval(updateStatuses, 1000);
+    </script>
+    <br>
+    <p></p>(C) NightCommunity 2019-2024, All rights reserved.</p>
+</body>
+</html>
